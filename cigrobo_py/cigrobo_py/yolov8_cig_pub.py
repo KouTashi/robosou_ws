@@ -26,7 +26,7 @@ cap = cv2.VideoCapture(2)  # builtin_cam:0 ext_cam:2
 msg = Int32MultiArray()
 
 
-class cig_pub(Node):
+class Cig_Pub(Node):
 
     def __init__(self):
         super().__init__("cig_pub")
@@ -53,35 +53,12 @@ class cig_pub(Node):
 
             # cls_and_box = list(zip(np.int32(results[0].boxes.cls), np.int32(results[0].boxes.xyxy)))
             try:
-                cls_and_x1 = list(
-                    zip(
-                        np.int32(results[0].boxes.cls),
-                        np.int32(results[0].boxes.xyxy[0]),
-                    )
-                )
-                cls_and_x1_sorted = sorted(
-                    cls_and_x1, key=lambda x: x[1]
-                )  # sort with x1
-                # print(cls_and_x1_sorted)
 
                 # -------------------------Publish-------------------------#
-                """
-                for i in range (len(cls_and_x1_sorted)):
-                    msg.data[i] = np.int32(cls_and_x1_sorted[i][0])
-                    print(msg.data)
-                """
                 msg.data = [-1, -1, -1, -1, -1]
 
-                for i in range(len(cls_and_x1_sorted)):
-                    msg.data[i] = cls_and_x1_sorted[i][0]
+                msg.data[0] = np.int32(results[0].boxes.cls[0])
 
-                """
-                msg.data[0] = cls_and_x1_sorted[0][0]
-                msg.data[1] = cls_and_x1_sorted[1][0]
-                msg.data[2] = cls_and_x1_sorted[2][0]
-                msg.data[3] = cls_and_x1_sorted[3][0]
-                msg.data[4] = cls_and_x1_sorted[4][0]
-                """
                 # msg.data = cls_and_x1_sorted
                 self.publisher_.publish(msg)
 
@@ -112,7 +89,7 @@ class cig_pub(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    cig_pub = cig_pub()
+    cig_pub = Cig_Pub()
     rclpy.spin(cig_pub)
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
