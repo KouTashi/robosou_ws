@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 ## coding: UTF-8
 
-"""
-キャチロボ2024
-3種類のワークを判別しX座標が小さい順に配列に格納、Publishする
-"""
-
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
@@ -31,7 +26,7 @@ cap = cv2.VideoCapture(2)  # builtin_cam:0 ext_cam:2
 msg = Int32MultiArray()
 
 
-class setoshio_pub(Node):
+class cig_pub(Node):
 
     def __init__(self):
         super().__init__("cig_pub")
@@ -117,12 +112,12 @@ class setoshio_pub(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    setoshio_publisher = setoshio_pub()
-    rclpy.spin(setoshio_publisher)
+    cig_pub = cig_pub()
+    rclpy.spin(cig_pub)
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
-    setoshio_publisher.destroy_node()
+    cig_pub.destroy_node()
     rclpy.shutdown()
 
 
