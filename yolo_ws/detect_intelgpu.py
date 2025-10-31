@@ -14,3 +14,9 @@ results = ov_model.predict(
     conf=0.5,
     show=True,
 )
+
+# results = ov_model.predict(
+#     source="/home/dev/robosou_ws/src/yolo_ws/sample/Screencast from 2025-10-09 11-41-59.webm",
+#     conf=0.5,
+#     show=True,
+# )
