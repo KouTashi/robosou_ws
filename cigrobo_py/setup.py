@@ -24,6 +24,7 @@ setup(
     entry_points={
         "console_scripts": [
             "cig_pub = cigrobo_py.yolov8_cig_pub:main",
+            "cig_pub_wl = cigrobo_py.yolov8_cig_pub_wireless:main",
         ],
     },
 )
