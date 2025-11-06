@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # coding: UTF-8
 
+# カメラ用無線化ノードの立ち上げコマンド↓
+# ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video2
+
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
