@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # coding: UTF-8
 
+# 子機側コマンド
+# ros2 run usb_cam usb_cam_node_exe --ros-args -p video_device:=/dev/video0
+
+
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
