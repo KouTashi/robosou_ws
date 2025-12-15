@@ -77,7 +77,9 @@ private:
             publish_data();
         }
 
-        std::cout << data[1] << std::endl;
+        // std::cout << data[1] << std::endl;
+        RCLCPP_INFO(this->get_logger(),
+                    "Published data[1]: %d", data[1]);
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
