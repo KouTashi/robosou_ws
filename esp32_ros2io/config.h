@@ -1,0 +1,79 @@
+#pragma once
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+// **複数のESPを使用する場合はIDを変更** //
+#define ID 1
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+// **外部シリアル変換モジュールによるデバッグを有効化** //
+#define DEBUG_SERIAL 0
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+// **使用する基板に合わせてモードを変更** //
+// Rev.4から各モードでの動作を変更
+#define MODE 1
+/*
+0:基板テスト用（ROSと接続せずに基板のテストのみを行う）※実機で「絶対」に実行しないこと　※テストモードについては下記参照
+1:出力（モタドラ、サーボ、ソレノイド）
+2:出力（ロボマス、モタドラ、サーボ、ソレノイド）
+3:入力（エンコーダー優先）
+4:入力（マイクロスイッチ優先）
+5:入力（C620 + M3508）
+6:出力（C610 + M2006）
+7:出力（C620 + M3508 with twai）
+8:出力（B-G431-ESC1 + BLDC with twai）
+9:入力（CANバスのデバッグ用）
+101:テスト用（自由に書き換えていい）
+*/
+// **テスト内容変更** // Rev.3から更新していないため使用禁止
+#define TEST_MODE 0
+/*
+0:何もせず待機
+1:MDテスト
+2:ENC/SWテスト
+3:SERVO/SVテスト
+4:未実装
+5:CANテスト
+*/
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+//**テストモード(MODE 0)について** //
+/*
+テストモードはROSと接続せずに基板のテストやデバッグを行うためのモードです。
+MODEを0に変更することで有効化され、TEST_MODEを変更することでテスト内容を変更します。
+書き込み後シリアルモニターでEnterキーを押すとテストモードの動作が開始します。
+テスト内容によっては機体の暴走や破損につながるので機体搭載時には「絶対」に実行しないでください。
+*/
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+// ROSとの接続にはエージェントが必要です。下記コマンドでエージェント立ち上げを行ってください（Dockerのインストールが必要）。USBポートは適宜変更すること。
+// sudo docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:jazzy serial --dev /dev/ttyUSB0 -v6
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+
+// 実装途中ですが、WiFi経由でのmicro-ROSエージェント接続も可能です。下記コマンドでエージェント立ち上げを行ってください（Dockerのインストールが必要）。ポート番号は適宜変更すること。
+//  docker run -it --rm --net=host microros/micro-ros-agent:jazzy tcp4 --port 8888
+
+// Dockerのインストールは以下のコマンドで
+/*
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo usermod -aG docker $USER
+*/
