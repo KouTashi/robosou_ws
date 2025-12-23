@@ -8,7 +8,7 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
-from sensor_msgs.msg import CompressedImage  # ← CompressedImageに変更
+from sensor_msgs.msg import CompressedImage
 from std_msgs.msg import Int32MultiArray
 
 import cv2
@@ -22,7 +22,7 @@ class YoloPublisher(Node):
 
         # --- Publisher & Subscriber 設定 ---
         self.subscription = self.create_subscription(
-            CompressedImage,  # ← ここを CompressedImage に変更
+            CompressedImage,
             "/image_raw/compressed",
             self.image_callback,
             qos_profile_sensor_data,
